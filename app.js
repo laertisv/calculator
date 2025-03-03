@@ -124,6 +124,13 @@ function removeDigit() {
     };
 };
 
+function simulateClick(button) {
+    button.classList.add('clicked');
+    setTimeout(() => {
+        button.classList.remove('clicked');
+    }, 100);
+}
+
 let variableA = "", variableB = "", operator = "";
 
 const display = document.querySelector("#display");
@@ -141,3 +148,84 @@ operators.forEach(btn => btn.addEventListener("click", () => useOperator(btn)));
 equals.addEventListener("click", operateAndDisplay);
 clear.addEventListener("click", clearDisplay);
 backspace.addEventListener("click", removeDigit);
+
+document.addEventListener('keydown', (event) => {
+    switch (event.key) {
+        case "0":
+            addDigit(digits[9]);
+            simulateClick(digits[9]);
+            break;
+        case "7":
+            addDigit(digits[6]);
+            simulateClick(digits[6]);
+            break;
+        case "8":
+            addDigit(digits[7]);
+            simulateClick(digits[7]);
+            break;
+        case "9":
+            addDigit(digits[8]);
+            simulateClick(digits[9]);
+            break;
+        case "4":
+            addDigit(digits[3]);
+            simulateClick(digits[3]);
+            break;
+        case "5":
+            addDigit(digits[4]);
+            simulateClick(digits[4]);
+            break;
+        case "6":
+            addDigit(digits[5]);
+            simulateClick(digits[5]);
+            break;
+        case "1":
+            addDigit(digits[0]);
+            simulateClick(digits[0]);
+            break;
+        case "2":
+            addDigit(digits[1]);
+            simulateClick(digits[1]);
+            break;
+        case "3":
+            addDigit(digits[2]);
+            simulateClick(digits[9]);
+            break;
+        case ".":
+            addDigit(decimal);
+            if (!decimal.disabled) {
+                simulateClick(decimal);
+            };
+            break;
+        case "+":
+            useOperator(operators[0]);
+            simulateClick(operators[0]);
+            break;
+        case "-":
+            useOperator(operators[1]);
+            simulateClick(operators[1]);
+            break;
+        case "*":
+            useOperator(operators[2]);
+            simulateClick(operators[2]);
+            break;
+        case "/":
+            useOperator(operators[3]);
+            simulateClick(operators[3]);
+            break;
+        case "Enter":
+            operateAndDisplay();
+            simulateClick(equals);
+            break;
+        case "Backspace":
+            if (!backspace.disabled) {
+                removeDigit();
+                simulateClick(backspace);
+            };
+            break;
+        case "Escape":
+            clearDisplay();
+            simulateClick(clear);
+            break;
+    };
+});

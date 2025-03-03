@@ -17,6 +17,12 @@ body {
     height: 800px;
 }
 
+#buttons {
+    border-color: rgb(34,30,49);
+    border-width: 5px;
+    border-style: solid;
+}
+
 .first-row, .second-row, .third-row, .fourth-row, .fifth-row {
     display: flex;
     justify-content: center;
@@ -36,13 +42,13 @@ button {
 
 #display {
     height: 80px;
-    width: 300px;
+    width: 310px;
     font-size: 50px;
     text-align: right;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: rgb(238, 238, 238);
-    border: 1px solid rgb(34,30,49);
+    border: 5px solid rgb(34,30,49);
     color: rgb(57,62,70);
 }
 
@@ -50,4 +56,10 @@ button {
 #backspace:disabled {
     background-color: rgb(34,30,49);
     color: rgb(238, 238, 238);
+}
+
+.clicked {
+    transform: scale(0.95);
+    filter: brightness(110%);
+    transition: all 0.1s ease;
 }
