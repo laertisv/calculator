@@ -45,15 +45,22 @@ function addDigit(btn) {
         if (operator !== "" && variableB == "") {
             if (btn.textContent === ".") {
                 display.textContent = "0";
+                decimal.disabled = true;
             }
             else {
                 display.textContent = "";
             };
         };
         if (display.textContent.length < 10 || (display.textContent.includes(".") && display.textContent.length < 11)) {
-            if (btn.textContent === "." && display.textContent == "") {
-                display.textContent = "0";
-            }
+            if (btn.textContent === ".") {
+                decimal.disabled = true;
+                if (display.textContent === "") {
+                    display.textContent = "0";
+                };
+                if (display.textContent.includes(".")) {
+                    return;
+                };
+            };
             display.textContent += btn.textContent;
         };
         // If the operator exists, this means that we are in the process of obtaining the second variable. We store it every time, to avoid resetting it to empty in the check above.
@@ -114,6 +121,7 @@ const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector("#equals");
 const clear = document.querySelector("#clear");
+const decimal = document.querySelector("#decimal");
 
 digits.forEach(btn => btn.addEventListener("click", () => addDigit(btn)));
 operators.forEach(btn => btn.addEventListener("click", () => useOperator(btn)));
