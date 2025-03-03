@@ -34,15 +34,26 @@ function addDigit(btn) {
     };
     // If we are at the end of a calculation and a digit is pressed, clear the display and start a new calculation. This can be checked by the operator not existing at the end of a previous calculation.
     if (variableA !== "" && operator === "") {
-        display.textContent = btn.textContent;
+        if (btn.textContent === ".") {
+            display.textContent = "0";
+        }
+        display.textContent += btn.textContent;
         variableA = "";
     } 
     else {
         // If the operator exists but the second variable is empty, this means that this is the first digit of the second variable. Clear the display to start a new number.
         if (operator !== "" && variableB == "") {
-            display.textContent = "";
+            if (btn.textContent === ".") {
+                display.textContent = "0";
+            }
+            else {
+                display.textContent = "";
+            };
         };
-        if (display.textContent.length < 10) {
+        if (display.textContent.length < 10 || (display.textContent.includes(".") && display.textContent.length < 11)) {
+            if (btn.textContent === "." && display.textContent == "") {
+                display.textContent = "0";
+            }
             display.textContent += btn.textContent;
         };
         // If the operator exists, this means that we are in the process of obtaining the second variable. We store it every time, to avoid resetting it to empty in the check above.
@@ -56,6 +67,7 @@ function useOperator(btn) {
     if (display.textContent !== "" && display.textContent !== "Gauss wept\xa0") {
         variableA = display.textContent;
         operator = btn.textContent;
+        decimal.disabled = false;
     };
 };
 
@@ -64,6 +76,7 @@ function clearDisplay() {
     variableA = "";
     variableB = "";
     operator = "";
+    decimal.disabled = false;
 };
 
 function operateAndDisplay() {
@@ -73,6 +86,7 @@ function operateAndDisplay() {
             variableA = "";
             variableB = "";
             operator = "";
+            decimal.disabled = false;
             return;
         };
         answer = operate(parseFloat(variableA), parseFloat(variableB), operator);
@@ -86,6 +100,7 @@ function operateAndDisplay() {
         variableA = display.textContent;
         variableB = "";
         operator = "";
+        decimal.disabled = false;
     };
 }
 
@@ -99,7 +114,6 @@ const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector("#equals");
 const clear = document.querySelector("#clear");
-
 
 digits.forEach(btn => btn.addEventListener("click", () => addDigit(btn)));
 operators.forEach(btn => btn.addEventListener("click", () => useOperator(btn)));
