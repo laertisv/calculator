@@ -11,7 +11,7 @@ function multiply(a, b) {
 };
 
 function divide(a, b) {
-  return a / b;
+    return a / b;
 };
 
 function operate(a, b, operator) {
@@ -28,6 +28,10 @@ function operate(a, b, operator) {
   };
 
 function addDigit(btn) {
+    // If the display is showing an error message, clear it.
+    if (display.textContent === "Gauss wept\xa0") {
+        display.textContent = "";
+    };
     // If we are at the end of a calculation and a digit is pressed, clear the display and start a new calculation. This can be checked by the operator not existing at the end of a previous calculation.
     if (variableA !== "" && operator === "") {
         display.textContent = btn.textContent;
@@ -49,7 +53,7 @@ function addDigit(btn) {
 };
 
 function useOperator(btn) {
-    if (display.textContent !== "") {
+    if (display.textContent !== "" && display.textContent !== "Gauss wept\xa0") {
         variableA = display.textContent;
         operator = btn.textContent;
     };
@@ -64,7 +68,21 @@ function clearDisplay() {
 
 function operateAndDisplay() {
     if (variableA !== "" && variableB !== "" && operator !== "") {
-        display.textContent = operate(parseFloat(variableA), parseFloat(variableB), operator);
+        if (operator === "/" && variableB === "0") {
+            display.textContent = "Gauss wept\xa0";
+            variableA = "";
+            variableB = "";
+            operator = "";
+            return;
+        };
+        answer = operate(parseFloat(variableA), parseFloat(variableB), operator);
+        if (Math.floor(answer) > 999999999) {
+            answer = answer.toExponential(5);
+        }
+        else if (answer.toString().length > 10 && answer.toString().includes(".")) {
+            answer = Math.round(answer * 1000000000) / 1000000000;
+        }
+        display.textContent = answer;
         variableA = display.textContent;
         variableB = "";
         operator = "";
