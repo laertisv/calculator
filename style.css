@@ -46,8 +46,8 @@ button {
     color: rgb(57,62,70);
 }
 
-#decimal:disabled {
+#decimal:disabled,
+#backspace:disabled {
     background-color: rgb(34,30,49);
     color: rgb(238, 238, 238);
 }
-

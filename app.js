@@ -38,6 +38,7 @@ function addDigit(btn) {
             display.textContent = "0";
         }
         display.textContent += btn.textContent;
+        backspace.disabled = false;
         variableA = "";
     } 
     else {
@@ -62,6 +63,7 @@ function addDigit(btn) {
                 };
             };
             display.textContent += btn.textContent;
+            backspace.disabled = false;
         };
         // If the operator exists, this means that we are in the process of obtaining the second variable. We store it every time, to avoid resetting it to empty in the check above.
         if (operator !== "") {
@@ -84,6 +86,7 @@ function clearDisplay() {
     variableB = "";
     operator = "";
     decimal.disabled = false;
+    backspace.disabled = false;
 };
 
 function operateAndDisplay() {
@@ -108,11 +111,20 @@ function operateAndDisplay() {
         variableB = "";
         operator = "";
         decimal.disabled = false;
+        backspace.disabled = true;
     };
 }
 
-let variableA = "", variableB = "", operator = "";
+function removeDigit() {
+    if (display.textContent !== "" && display.textContent !== "Gauss wept\xa0") {
+        if (display.textContent.slice(-1) === ".") {
+            decimal.disabled = false;
+        };
+        display.textContent = display.textContent.slice(0, -1);
+    };
+};
 
+let variableA = "", variableB = "", operator = "";
 
 const display = document.querySelector("#display");
 display.textContent = "";
@@ -122,8 +134,10 @@ const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector("#equals");
 const clear = document.querySelector("#clear");
 const decimal = document.querySelector("#decimal");
+const backspace = document.querySelector("#backspace");
 
 digits.forEach(btn => btn.addEventListener("click", () => addDigit(btn)));
 operators.forEach(btn => btn.addEventListener("click", () => useOperator(btn)));
 equals.addEventListener("click", operateAndDisplay);
 clear.addEventListener("click", clearDisplay);
+backspace.addEventListener("click", removeDigit);
