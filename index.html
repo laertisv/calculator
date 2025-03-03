@@ -3,45 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
 
     <div id="calculator">
-        <div id="display">
-            1234567890
-        </div>
+        <div id="display"> </div>
 
         <div id="buttons">
             <div class="first-row">
-                <button class="clear"> C </button>
-                <button class="backspace"> < </button>
+                <button id="clear">C</button>
+                <button id="backspace"> < </button>
             </div>
             <div class="second-row">
-                <button class="1"> 1 </button>
-                <button class="2"> 2 </button>
-                <button class="3"> 3 </button>
-                <button class="add"> + </button>
+                <button id="one" class="digit">1</button>
+                <button id="two" class="digit">2</button>
+                <button id="three" class="digit">3</button>
+                <button id="add" class="operator">+</button>
             </div>
             <div class="third-row">
-                <button class="4"> 4 </button>
-                <button class="5"> 5 </button>
-                <button class="6"> 6 </button>
-                <button class="subtract"> - </button>
+                <button id="four" class="digit">4</button>
+                <button id="five" class="digit">5</button>
+                <button id="six" class="digit">6</button>
+                <button id="subtract" class="operator">-</button>
             </div>
             <div class="fourth-row">
-                <button class="7"> 7 </button>
-                <button class="8"> 8 </button>
-                <button class="9"> 9 </button>
-                <button class="multiply"> * </button>
+                <button id="seven" class="digit">7</button>
+                <button id="eight" class="digit">8</button>
+                <button id="nine" class="digit">9</button>
+                <button id="multiply" class="operator">*</button>
             </div>
             <div class="fifth-row">
-                <button class="equals"> = </button>
-                <button class="0"> 0 </button>
-                <button class="decimal"> . </button>
-                <button class="divide"> / </button>
+                <button id="equals">=</button>
+                <button id="zero" class="digit">0</button>
+                <button id="decimal">.</button>
+                <button id="divide" class="operator">/</button>
             </div>
         </div>
 
