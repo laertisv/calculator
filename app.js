@@ -96,9 +96,18 @@ function operateAndDisplay() {
             return;
         };
         answer = operate(parseFloat(variableA), parseFloat(variableB), operator);
-        if (Math.floor(answer) > 9999999999) { 
-            // 9999999999 is the largest number that can be displayed without scientific notation.
-            answer = answer.toExponential(5);
+        // 9999999999 is the largest number that can be displayed without scientific notation.
+        if (Math.floor(answer) > 9999999999) {
+            let significantDigits = 5;
+            let formattedAnswer;
+    
+            // Keep reducing significant digits until the number fits
+            do {
+                formattedAnswer = answer.toExponential(significantDigits);
+                significantDigits--;
+            } while (formattedAnswer.length > 11 && significantDigits >= 0);
+    
+            answer = formattedAnswer;
         }
         else if (answer.toString().length > 10 && answer.toString().includes(".")) {
             // Calculate how many decimal places we can keep
