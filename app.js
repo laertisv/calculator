@@ -35,30 +35,24 @@ function addDigit(btn) {
     // If we are at the end of a calculation and a digit is pressed, clear the display and start a new calculation. This can be checked by the operator not existing at the end of a previous calculation.
     if (variableA !== "" && operator === "") {
         if (btn.textContent === ".") {
-            display.textContent = "0";
+            display.textContent = "0.";
+            decimal.disabled = true;
         }
-        display.textContent = btn.textContent;
+        else {
+            display.textContent = btn.textContent;
+        };
         backspace.disabled = false;
         variableA = "";
     } 
     else {
         // If the operator exists but the second variable is empty, this means that this is the first digit of the second variable. Clear the display to start a new number.
         if (operator !== "" && variableB == "") {
-            if (btn.textContent === ".") {
-                display.textContent = "0.";
-                decimal.disabled = true;
-            }
-            else {
-                display.textContent = "0";
-            };
+            display.textContent = "0";
         };
         // Otherwise, we are just adding our number to the display (may be the first or second variable). 
         if (display.textContent.length < 10 || (display.textContent.includes(".") && display.textContent.length < 11)) {
             if (btn.textContent === ".") {
                 decimal.disabled = true;
-                if (display.textContent.includes(".")) {
-                    return;
-                };
             };
             if (display.textContent === "0" && btn.textContent !== ".") {
                 display.textContent = "";
@@ -98,6 +92,7 @@ function operateAndDisplay() {
             variableB = "";
             operator = "";
             decimal.disabled = false;
+            backspace.disabled = true;
             return;
         };
         answer = operate(parseFloat(variableA), parseFloat(variableB), operator);
